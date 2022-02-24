@@ -2,8 +2,6 @@
 
 namespace tests\units;
 
-require_once dirname(dirname(__DIR__)) . '/vendor/autoload.php';
-
 use \app\routing\{Router, Route};
 
 class RouterTest extends \PHPUnit\Framework\TestCase
