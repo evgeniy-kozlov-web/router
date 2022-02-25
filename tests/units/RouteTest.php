@@ -33,7 +33,7 @@ class RouteTest extends \PHPUnit\Framework\TestCase
 
 	public function testItSavesValidSlug()
 	{
-		$route = new Route('GET', '/about', 'test', ' _ _about_us_ _ ');
+		$route = new Route('GET', '/about', 'test', ' _ _a$bo/*ut_u@s_ _ ');
 
 		$this->assertEquals(
 			'about_us',
@@ -58,16 +58,6 @@ class RouteTest extends \PHPUnit\Framework\TestCase
 		$this->assertEquals(
 			'GET',
 			$route->getMethod()
-		);
-	}
-
-	public function testItRemoveNotValidCharactersFromSlug()
-	{
-		$route = new Route('GET', '/about', 'test', '/ab$out_us');
-
-		$this->assertEquals(
-			'about_us',
-			$route->getSlug()
 		);
 	}
 
