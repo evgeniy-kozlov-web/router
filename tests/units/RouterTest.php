@@ -28,14 +28,6 @@ class RouterTest extends \PHPUnit\Framework\TestCase
 		);
 	}
 
-	public function testItCanChaining()
-	{
-		$this->assertEquals(
-			$this->router->addRoute(new Route('GET', '/about', 'test', 'about_us')),
-			$this->router
-		);
-	}
-
 	public function testItCanGetRouteBySlug()
 	{
 		$route = new Route('GET', '/about', 'test', 'about_us');
