@@ -31,9 +31,9 @@ class RouteTest extends \PHPUnit\Framework\TestCase
 		);
 	}
 
-	public function testItTrimSpacesInSlug()
+	public function testItDeleteSpacesInSlug()
 	{
-		$route = new Route('GET', '/about', 'test', '   about_us   ');
+		$route = new Route('GET', '/about', 'test', ' _ _about_us_ _ ');
 
 		$this->assertEquals(
 			'about_us',
@@ -44,36 +44,6 @@ class RouteTest extends \PHPUnit\Framework\TestCase
 	public function testItTrimUnderscoresInSlug()
 	{
 		$route = new Route('GET', '/about', 'test', '___about_us___');
-
-		$this->assertEquals(
-			'about_us',
-			$route->getSlug()
-		);
-	}
-
-	public function testItTrimUnderscoresAndSpacesInSlug()
-	{
-		$route = new Route('GET', '/about', 'test', '___   about_us   ___');
-
-		$this->assertEquals(
-			'about_us',
-			$route->getSlug()
-		);
-	}
-
-	public function testItTrimSpacesAndUnderscoresInSlug()
-	{
-		$route = new Route('GET', '/about', 'test', '   ___about_us___   ');
-
-		$this->assertEquals(
-			'about_us',
-			$route->getSlug()
-		);
-	}
-
-	public function testItTrimMultiSpacesAndMultiUnderscoresInSlug()
-	{
-		$route = new Route('GET', '/about', 'test', '_ _ _about_us_ _ _');
 
 		$this->assertEquals(
 			'about_us',
