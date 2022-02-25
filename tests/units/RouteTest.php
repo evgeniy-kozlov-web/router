@@ -31,19 +31,9 @@ class RouteTest extends \PHPUnit\Framework\TestCase
 		);
 	}
 
-	public function testItDeleteSpacesInSlug()
+	public function testItSavesValidSlug()
 	{
 		$route = new Route('GET', '/about', 'test', ' _ _about_us_ _ ');
-
-		$this->assertEquals(
-			'about_us',
-			$route->getSlug()
-		);
-	}
-
-	public function testItTrimUnderscoresInSlug()
-	{
-		$route = new Route('GET', '/about', 'test', '___about_us___');
 
 		$this->assertEquals(
 			'about_us',
