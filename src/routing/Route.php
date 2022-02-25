@@ -51,7 +51,7 @@ class Route
 	private function createSlug(string $slug): string
 	{
 		$slug = preg_replace('/[^\w+]/', '', $slug);
-		$slug = trim(trim($slug), '_');
+		$slug = trim($slug, '_');
 		$slug = strtolower($slug);
 
 		return $slug;
