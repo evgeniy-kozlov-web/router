@@ -36,20 +36,10 @@ class RouterTest extends \PHPUnit\Framework\TestCase
 		$this->assertTrue($route->equals($this->router->getRoute('about_us')));
 	}
 
-	public function testItReturnsValidPaths()
-	{
-		$this->assertEquals(
-			[
-				'/about'
-			],
-			$this->router->addRoute(new Route('GET', '/about', 'about', 'about_us'))->getPaths()
-		);
-	}
-
 	public function testItReturnsRouteByPath()
 	{
 		$route = new Route('GET', '/about', 'about', 'about_us');
-		$this->assertTrue($route->equals($this->router->addRoute($route)->getRouteByPath('/about')));
+		$this->assertTrue($route->equals($this->router->addRoute($route)->getRouteByRule('/about', 'GET')));
 	}
 
 	public function testItThrowsSlugIsExistsExceptionIfSlugIsRepeats()
@@ -59,24 +49,20 @@ class RouterTest extends \PHPUnit\Framework\TestCase
 		$this->router->addRoute(new Route('GET', '/about', 'test', 'about_us'))->addRoute(new Route('GET', '/about', 'test', 'about_us'));
 	}
 
-	public function testItThrowsPathIsExistsExceptionIfPathIsRepeats()
+	public function testItThrowsRuleIsExistsExceptionIfPathIsRepeats()
 	{
-		$this->expectException(\app\exceptions\PathIsAlreadyExistsException::class);
+		$this->expectException(\app\exceptions\RuleIsAlreadyExistsException::class);
 
 		$this->router->addRoute(new Route('GET', '/about', 'test', 'about_us'))->addRoute(new Route('GET', '/about', 'test', 'not_about_us'));
 	}
 
-	public function testItThrowsSlugIsNotExistsExceptionIfSlugIsNotExists()
+	public function testItReturnsFalseIfSlugIsNotExists()
 	{
-		$this->expectException(\app\exceptions\SlugIsNotExistsException::class);
-
-		$this->router->getRoute('test');
+		$this->assertFalse($this->router->getRoute('test'));
 	}
 
-	public function testItThrowsPathIsNotExistsExceptionIfPathIsNotExists()
+	public function testItReturnsFalseIfPathIsNotExists()
 	{
-		$this->expectException(\app\exceptions\PathIsNotExistsException::class);
-
-		$this->router->getRouteByPath('test');
+		$this->assertFalse($this->router->getRouteByRule('test', 'GET'));
 	}
 }
